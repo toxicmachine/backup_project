@@ -1,0 +1,27 @@
+Для решения этих проблем в Python есть отличные инструменты. Они позволяют описывать настройки как классы, что даёт автодополнение и строгую проверку типов.
+
+Вот как твоя настройка могла бы выглядеть с использованием @dataclass (встроен в Python 3.7+):
+
+from dataclasses import dataclass
+from typing import Dict
+
+@dataclass
+class DailySchedule:
+    state: bool
+    mode: str = 'default'
+
+@dataclass
+class DatabaseSettings:
+    database: str
+    schedule: Dict[str, DailySchedule]
+
+# Как это использовать:
+settings = DatabaseSettings(
+    database='book',
+    schedule={
+        'Monday': DailySchedule(state=True),
+        'Tuesday': DailySchedule(state=True),
+        'Sunday': DailySchedule(state=True, mode='extended'),
+        # ... остальные дни
+    }
+)
